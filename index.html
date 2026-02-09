@@ -1,32 +1,98 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>todolist</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Aplicación de lista de tareas para organizar tus pendientes de forma sencilla" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <title>Mi Lista de Tareas</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <h1 class="title">
-        To Do List
-      </h1>
+    <!-- HEADER -->
+    <header role="banner">
+      <h1 class="title">Mi Lista de Tareas</h1>
     </header>
-    <main class="wrap">
-      <div class="container">
-        <!-- CAMBIO: Usar <button> en lugar de <input type="button"> -->
-        <button class="buttom" type="button">Mis tareas</button>
-        <button class="buttom" type="button">Agregar tarea</button>
-      </div>
-      <input type="search" class="search-bar" placeholder="Buscar tareas..." id="buscadorTareas" aria-label="Buscar tareas">
-      <div class="view">
-        <input class="toggle" type="checkbox" id="task1">
-        <label for="task1">Lorem iaciis voluptas minus id.</label>
-        <button class="destroy" aria-label="Eliminar tarea"></button>
-      </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="wrap" role="main">
+      <!-- Navigation Buttons -->
+      <nav class="container" aria-label="Navegación principal">
+        <button class="button" type="button" aria-label="Ver mis tareas">
+          Mis tareas
+        </button>
+        <button class="button" type="button" aria-label="Agregar nueva tarea">
+          Agregar tarea
+        </button>
+      </nav>
+
+      
+      <!-- 
+      <section class="tasks-section" aria-label="Lista de tareas">
+        <div class="search-container">
+          <label for="buscadorTareas" class="visually-hidden">Buscar tareas</label>
+          <input 
+            type="search" 
+            class="search-bar" 
+            placeholder="Buscar tareas..." 
+            id="buscadorTareas" 
+            aria-label="Buscar tareas"
+          />
+        </div>
+
+        <ul class="tasks-list" role="list">
+          <li class="task-item">
+            <div class="task-view">
+              <input 
+                class="task-toggle" 
+                type="checkbox" 
+                id="task1"
+                aria-label="Marcar tarea como completada"
+              />
+              <label for="task1" class="task-label">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </label>
+              <button 
+                class="task-delete" 
+                type="button"
+                aria-label="Eliminar tarea"
+              ></button>
+            </div>
+          </li>
+        </ul>
+
+        <footer class="tasks-footer">
+          <button class="button filter-button" type="button">Completadas</button>
+          <button class="button filter-button" type="button">Pendientes</button>
+          <button class="button filter-button" type="button">Todas</button>
+        </footer>
+      </section>
+      -->
+
+      <!-- ADD TASK SECTION (Template comentado para JS) -->
+      <!--
+      <section class="add-task-section" aria-label="Agregar nueva tarea">
+        <div class="add-task-container">
+          <label for="añadirTarea" class="visually-hidden">Nueva tarea</label>
+          <input 
+            type="text" 
+            class="search-bar add-task-input" 
+            placeholder="Escribe tu nueva tarea..." 
+            id="añadirTarea" 
+            aria-label="Escribir nueva tarea"
+          />
+          <button class="button add-task-button" type="button">
+            Añadir tarea
+          </button>
+        </div>
+      </section>
+      -->
     </main>
+
+    <!-- App Container for JS -->
     <div id="app"></div>
+
+    <!-- Scripts -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
