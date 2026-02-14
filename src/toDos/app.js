@@ -73,21 +73,34 @@ export const App = (elementId) => {
         })
     });
     
-
     addTodo.addEventListener("click", () => {
-        fatherContainer.innerHTML = htmladdTodos;
+    fatherContainer.innerHTML = htmladdTodos;
+    
+    // Selecciona DESPUÉS de insertar el HTML
+    const enterToDo = document.querySelector("#añadirTarea");
+    const botonEnter = document.querySelector(".add-task-button");
+    
+    // Evento para Enter (keyup)
+    enterToDo.addEventListener('keyup', (event) => {
+        if (event.keyCode !== 13) return;
+        if (event.target.value.trim().length === 0) return;
         
-        // Selecciona DESPUÉS de insertar el HTML
-        const enterToDo = document.querySelector("#añadirTarea");
+        store.addTodo(event.target.value);
+        event.target.value = '';
         
-        enterToDo.addEventListener('keyup', (event) => {
-            if (event.keyCode !== 13) return;
-            if (event.target.value.trim().length === 0) return;
-            
-            store.addTodo(event.target.value);
-            event.target.value = '';
-            
-            console.log('Todo agregado, todos actuales:', store.getTodos());
-        });
+        console.log('Todo agregado con Enter, todos actuales:', store.getTodos());
     });
+    
+    // Evento para el botón (click)
+    botonEnter.addEventListener('click', () => {
+        if (enterToDo.value.trim().length === 0) return;  
+        
+        store.addTodo(enterToDo.value); 
+        enterToDo.value = ''; 
+        
+        console.log('Todo agregado con botón, todos actuales:', store.getTodos());
+    });
+});
+
+
 }
