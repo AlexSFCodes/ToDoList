@@ -26,7 +26,7 @@ const initStore = () => {
 
 const loadStore = () => {
     if(!localStorage.getItem('state')) return;
-    const {todos = [], filter = filter.All } =JSON.parse(state);
+    const {todos = [], filter = Filters.All } = JSON.parse(localStorage.getItem('state'));
     state.todos = todos;
     state.filter = filter;
 }
@@ -38,7 +38,7 @@ const saveStateToLocalStorage = () =>{
 
 const getTodos = ( filter = Filters.All ) => {
     switch (filter) {
-        case Filters.all:
+        case Filters.All:
             return [...state.todos];
             break;
         case Filters.Completed:
@@ -53,6 +53,7 @@ const getTodos = ( filter = Filters.All ) => {
             break;
     }
 }
+
 
 /**
  * @param {String} description 
@@ -109,7 +110,6 @@ const getCurrentFilter = () => {
 
 export default {
     addTodo,
-    deleteCompleted,
     deleteTodo,
     getCurrentFilter,
     getTodos,
