@@ -60,7 +60,7 @@ const getTodos = ( filter = Filters.All ) => {
  */
 const addTodo = ( description ) => {
     if(!description) throw new Error("No hay nada");
-    state.todo.push(new Todo(description));
+    state.todos.push(new Todo(description));
     saveStateToLocalStorage();
 }
 
