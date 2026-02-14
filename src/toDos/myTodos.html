@@ -1,0 +1,25 @@
+<section class="tasks-section" aria-label="Lista de tareas">
+    <div class="search-container">
+        <label for="buscadorTareas" class="visually-hidden">Buscar tareas</label>
+        <input type="search" class="search-bar" placeholder="Buscar tareas..." id="buscadorTareas"
+            aria-label="Buscar tareas" />
+    </div>
+
+    <ul class="tasks-list" role="list">
+        <li class="task-item">
+            <div class="task-view">
+                <input class="task-toggle" type="checkbox" id="task1" aria-label="Marcar tarea como completada" />
+                <label for="task1" class="task-label">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </label>
+                <button class="task-delete" type="button" aria-label="Eliminar tarea"></button>
+            </div>
+        </li>
+    </ul>
+
+    <footer class="tasks-footer">
+        <button class="button filter-button" type="button">Completadas</button>
+        <button class="button filter-button" type="button">Pendientes</button>
+        <button class="button filter-button" type="button">Todas</button>
+    </footer>
+</section>
