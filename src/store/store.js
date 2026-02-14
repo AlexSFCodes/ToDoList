@@ -82,7 +82,7 @@ const toggleTodo = ( todoId ) => {
 
 const deleteTodo = ( todoId ) => {
     state.todos = state.todos.filter(
-        toDo => {return toDo != todoId} 
+        toDo => toDo.id !== todoId 
     )
     saveStateToLocalStorage();
 }
