@@ -1,6 +1,5 @@
 import { Todo } from '../model/todo.model';
 
-
 export const Filters = {
     All: 'all',
     Completed: 'Completed',
@@ -8,99 +7,66 @@ export const Filters = {
 }
 
 const state = {
-    todos: [
-        new Todo('Pieda del alma'),
-        new Todo('Pieda del espacio'),
-        new Todo('Pieda del tiempo'),
-        new Todo('Pieda del poder'),
-        new Todo('Pieda del realidad'),
-    ],
+    todos: [],
     filter: Filters.All,
 }
 
-
 const initStore = () => {
     loadStore();
-    console.log('InitStore 🥑');
 }
 
 const loadStore = () => {
-    if(!localStorage.getItem('state')) return;
-    const {todos = [], filter = Filters.All } = JSON.parse(localStorage.getItem('state'));
+    if (!localStorage.getItem('state')) return;
+    
+    const { todos = [], filter = Filters.All } = JSON.parse(localStorage.getItem('state'));
     state.todos = todos;
     state.filter = filter;
 }
 
-const saveStateToLocalStorage = () =>{
+const saveStateToLocalStorage = () => {
     localStorage.setItem('state', JSON.stringify(state));
 }
 
-
-const getTodos = ( filter = Filters.All ) => {
+const getTodos = (filter = Filters.All) => {
     switch (filter) {
         case Filters.All:
-
             return [...state.todos];
-            break;
         case Filters.Completed:
-            console.log("Haz seleccionado completos")
-            return state.todos.filter( todo => todo.done);
-            break;
+            return state.todos.filter(todo => todo.done);
         case Filters.Pending:
-            return state.todos.filter( todo => !todo.done);
-            break;
-    
+            return state.todos.filter(todo => !todo.done);
         default:
-            throw new Error("No sirvio contactese con un administrador"); 
-            break;
+            throw new Error("Filtro no válido");
     }
 }
 
-
-/**
- * @param {String} description 
- */
-const addTodo = ( description ) => {
-    if(!description) throw new Error("No hay nada");
+const addTodo = (description) => {
+    if (!description) throw new Error("Descripción vacía");
     state.todos.push(new Todo(description));
     saveStateToLocalStorage();
 }
 
-/**
- * 
- * @param {String} todoId
- */
-const toggleTodo = ( todoId ) => {
-    state.todos = state.todos.map(
-        toDo => {
-            if(toDo.id == todoId){
-                toDo.done= !toDo.done;
-            }
-            return toDo;
+const toggleTodo = (todoId) => {
+    state.todos = state.todos.map(toDo => {
+        if (toDo.id === todoId) {
+            toDo.done = !toDo.done;
         }
-    )
+        return toDo;
+    });
     saveStateToLocalStorage();
 }
 
-const deleteTodo = ( todoId ) => {
-    state.todos = state.todos.filter(
-        toDo => toDo.id !== todoId 
-    )
+const deleteTodo = (todoId) => {
+    state.todos = state.todos.filter(toDo => toDo.id !== todoId);
     saveStateToLocalStorage();
 }
-/**
- * We can use this function but the HTML needs to be modified
-    const deleteCompleted = () => {
-    
-    }
- * 
- */
 
-/**
- * 
- * @param {Filters} newFilter 
- */
-const setFilter = ( newFilter = Filters.All ) => {
+const deleteCompleted = () => {
+    state.todos = state.todos.filter(todo => !todo.done);
+    saveStateToLocalStorage();
+}
+
+const setFilter = (newFilter = Filters.All) => {
     state.filter = newFilter;
     saveStateToLocalStorage();
 }
@@ -109,9 +75,9 @@ const getCurrentFilter = () => {
     return state.filter;
 }
 
-
 export default {
     addTodo,
+    deleteCompleted,
     deleteTodo,
     getCurrentFilter,
     getTodos,

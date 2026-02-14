@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aplicación de lista de tareas para organizar tus pendientes de forma sencilla" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <title>Mi Lista de Tareas</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" crossorigin src="/assets/index-Dr8KSxmE.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CcVdHztt.css">
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header role="banner">
+      <h1 class="title">Mi Lista de Tareas</h1>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="wrap" role="main">
+      <!-- Navigation Buttons -->
+      <nav class="container" aria-label="Navegación principal">
+        <button id="myHomeworks" class="button" type="button" aria-label="Ver mis tareas">
+          Mis tareas
+        </button>
+        <button id="addToDo" class="button" type="button" aria-label="Agregar nueva tarea">
+          Agregar tarea
+        </button>
+      </nav>
+      <div id="father">
+
+      </div>
+      
+      <!-- 
+      <section class="tasks-section" aria-label="Lista de tareas">
+        <div class="search-container">
+          <label for="buscadorTareas" class="visually-hidden">Buscar tareas</label>
+          <input 
+            type="search" 
+            class="search-bar" 
+            placeholder="Buscar tareas..." 
+            id="buscadorTareas" 
+            aria-label="Buscar tareas"
+          />
+        </div>
+
+        <ul class="tasks-list" role="list">
+          <li class="task-item">
+            <div class="task-view">
+              <input 
+                class="task-toggle" 
+                type="checkbox" 
+                id="task1"
+                aria-label="Marcar tarea como completada"
+              />
+              <label for="task1" class="task-label">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </label>
+              <button 
+                class="task-delete" 
+                type="button"
+                aria-label="Eliminar tarea"
+              ></button>
+            </div>
+          </li>
+        </ul>
+
+        <footer class="tasks-footer">
+          <button class="button filter-button" type="button">Completadas</button>
+          <button class="button filter-button" type="button">Pendientes</button>
+          <button class="button filter-button" type="button">Todas</button>
+        </footer>
+      </section>
+      -->
+
+      <!-- ADD TASK SECTION (Template comentado para JS) -->
+      <!--
+      <section class="add-task-section" aria-label="Agregar nueva tarea">
+        <div class="add-task-container">
+          <label for="añadirTarea" class="visually-hidden">Nueva tarea</label>
+          <input 
+            type="text" 
+            class="search-bar add-task-input" 
+            placeholder="Escribe tu nueva tarea..." 
+            id="añadirTarea" 
+            aria-label="Escribir nueva tarea"
+          />
+          <button class="button add-task-button" type="button">
+            Añadir tarea
+          </button>
+        </div>
+      </section>
+      -->
+    </main>
+
+    <!-- App Container for JS -->
+    <div id="app"></div>
+
+    <!-- Scripts -->
+  </body>
+</html>
