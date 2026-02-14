@@ -162,10 +162,9 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👤 Autor
 
-**Tu Nombre**
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- LinkedIn: [Tu Perfil](https://linkedin.com/in/tu-perfil)
-- Email: tu.email@example.com
+**AlexCodes**
+- GitHub: [@AlexCodes](https://github.com/tu-usuario)
+
 
 ## 🙏 Agradecimientos
 
@@ -196,7 +195,7 @@ dist/
 ```
 MIT License
 
-Copyright (c) 2024 [Tu Nombre]
+Copyright (c) 2024 [AlexCodes]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
