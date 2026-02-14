@@ -1,7 +1,8 @@
 import htmlmyTodos from './myTodos.html?raw';
 import htmladdTodos from './addTodo.html?raw';
 import store from '../store/store';
-
+import { renderToDos } from './rederTodos';
+import {Filters} from '../store/store';
 export const App = (elementId) => {
     const myTodos = document.querySelector("#myHomeworks");
     const addTodo = document.querySelector("#addToDo");
@@ -32,7 +33,6 @@ export const App = (elementId) => {
                     store.toggleTodo(todoId);
                 }
             }
-            
             // Si es el botón de eliminar
             if (element.classList.contains('task-delete')) {
                 console.log('Es el botón de eliminar');
@@ -53,39 +53,26 @@ export const App = (elementId) => {
             console.log('Todos actualizados para renderizar:', todosActualizados);
             renderToDos(todosActualizados, taskList);
         });
+
+        //PARA FILTRAR CON EL FOTTER 
+        const botonesFiltradores = document.querySelectorAll(".filter-button");
+        botonesFiltradores[0].addEventListener('click',()=>{
+            console.log("usted aplasto el boton completadas")
+        
+            renderToDos(store.getTodos(Filters.Completed), taskList);
+        })
+        botonesFiltradores[1].addEventListener('click',()=>{
+            console.log("usted aplasto el boton pendings")
+        
+            renderToDos(store.getTodos(Filters.Pending), taskList);
+        })
+        botonesFiltradores[2].addEventListener('click',()=>{
+            console.log("usted aplasto el boton pendings")
+        
+            renderToDos(store.getTodos(Filters.All), taskList);
+        })
     });
     
-    const renderToDos = (listasToDo, taskList) => {
-        console.log('Renderizando todos:', listasToDo);
-        // Limpia antes de agregar
-        taskList.innerHTML = '';
-        
-        listasToDo.forEach(element => {
-            const html = `
-                <li class="task-item" data-id="${element.id}">
-                    <div class="task-view">
-                        <input 
-                            class="task-toggle" 
-                            type="checkbox" 
-                            id="task${element.id}"
-                            ${element.done ? 'checked' : ''}
-                            aria-label="Marcar tarea como completada" 
-                        />
-                        <label for="task${element.id}" class="task-label">
-                            ${element.description}
-                        </label>
-                        <button 
-                            class="task-delete" 
-                            type="button" 
-                            aria-label="Eliminar tarea"
-                        ></button>
-                    </div>
-                </li>
-            `;
-            
-            taskList.innerHTML += html;
-        });
-    }
 
     addTodo.addEventListener("click", () => {
         fatherContainer.innerHTML = htmladdTodos;

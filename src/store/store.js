@@ -39,9 +39,11 @@ const saveStateToLocalStorage = () =>{
 const getTodos = ( filter = Filters.All ) => {
     switch (filter) {
         case Filters.All:
+
             return [...state.todos];
             break;
         case Filters.Completed:
+            console.log("Haz seleccionado completos")
             return state.todos.filter( todo => todo.done);
             break;
         case Filters.Pending:
