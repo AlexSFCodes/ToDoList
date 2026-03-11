@@ -6,20 +6,22 @@
     <meta name="description" content="Aplicación de lista de tareas para organizar tus pendientes de forma sencilla" />
     <link rel="icon" type="image/svg+xml" href="/ToDoList/vite.svg" />
     <title>Mi Lista de Tareas</title>
-    <link rel="stylesheet" href="style.css" />
-    <script type="module" crossorigin src="/ToDoList/assets/index-Dr8KSxmE.js"></script>
-    <link rel="stylesheet" crossorigin href="/ToDoList/assets/index-CcVdHztt.css">
+    <script type="module" crossorigin src="/ToDoList/assets/index-BFzRtIZ6.js"></script>
+    <link rel="stylesheet" crossorigin href="/ToDoList/assets/index-BvE_SoyD.css">
   </head>
   <body>
     <!-- HEADER -->
     <header role="banner">
       <h1 class="title">Mi Lista de Tareas</h1>
+      <button id="logoutBtn" class="logout-btn" type="button" aria-label="Cerrar sesión" hidden="hidden">
+        Cerrar sesión
+      </button>
     </header>
 
     <!-- MAIN CONTENT -->
     <main class="wrap" role="main">
-      <!-- Navigation Buttons -->
-      <nav class="container" aria-label="Navegación principal">
+      <!-- Navigation Buttons (hidden until logged in) -->
+      <nav class="container" aria-label="Navegación principal" hidden="hidden">
         <button id="myHomeworks" class="button" type="button" aria-label="Ver mis tareas">
           Mis tareas
         </button>
@@ -27,15 +29,10 @@
           Agregar tarea
         </button>
       </nav>
-      <div id="father">
 
-      </div>
- 
+      <!-- Dynamic content renders here -->
+      <div id="father"></div>
     </main>
 
-    <!-- App Container for JS -->
-    <div id="app"></div>
-
-    <!-- Scripts -->
   </body>
 </html>
