@@ -1,0 +1,42 @@
+<section class="auth-section" aria-label="Iniciar sesión">
+    <div class="auth-card">
+        <h2 class="auth-title">Iniciar sesión</h2>
+
+        <div id="loginError" class="auth-error" role="alert" aria-live="polite" hidden></div>
+
+        <div class="auth-form">
+            <div class="field-group">
+                <label for="loginEmail" class="field-label">Correo electrónico</label>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    class="field-input"
+                    placeholder="tu@correo.com"
+                    autocomplete="email"
+                    required
+                />
+            </div>
+
+            <div class="field-group">
+                <label for="loginPassword" class="field-label">Contraseña</label>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    class="field-input"
+                    placeholder="••••••••"
+                    autocomplete="current-password"
+                    required
+                />
+            </div>
+
+            <button id="loginSubmit" class="button auth-submit" type="button">
+                Entrar
+            </button>
+        </div>
+
+        <p class="auth-switch">
+            ¿No tienes cuenta?
+            <button id="goToRegister" class="link-button" type="button">Regístrate</button>
+        </p>
+    </div>
+</section>

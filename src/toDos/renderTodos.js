@@ -8,27 +8,28 @@ export const renderToDos = (listasToDo, taskList) => {
 
     listasToDo.forEach(element => {
         const html = `
-            <li class="task-item ${element.done ? 'completed' : ''}" data-id="${element.id}">
+            <li class="task-item ${element.done ? 'completed' : ''}"
+                data-id="${element.id}"
+                data-done="${element.done}">
                 <div class="task-view">
-                    <input 
-                        class="task-toggle" 
-                        type="checkbox" 
+                    <input
+                        class="task-toggle"
+                        type="checkbox"
                         id="task${element.id}"
                         ${element.done ? 'checked' : ''}
-                        aria-label="Marcar tarea como completada" 
+                        aria-label="Marcar tarea como completada"
                     />
                     <label for="task${element.id}" class="task-label">
                         ${element.description}
                     </label>
-                    <button 
-                        class="task-delete" 
-                        type="button" 
-                        aria-label="Eliminar tarea"
-                    ></button>
+                    <button
+                        class="task-delete"
+                        type="button"
+                        aria-label="Eliminar tarea">
+                    </button>
                 </div>
             </li>
         `;
-
         taskList.innerHTML += html;
     });
-}
+};

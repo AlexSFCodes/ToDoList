@@ -1,0 +1,55 @@
+<section class="auth-section" aria-label="Crear cuenta">
+    <div class="auth-card">
+        <h2 class="auth-title">Crear cuenta</h2>
+
+        <div id="registerError" class="auth-error" role="alert" aria-live="polite" hidden></div>
+
+        <div class="auth-form">
+            <div class="field-group">
+                <label for="registerName" class="field-label">Nombre</label>
+                <input
+                    type="text"
+                    id="registerName"
+                    class="field-input"
+                    placeholder="Tu nombre"
+                    autocomplete="name"
+                    required
+                />
+            </div>
+
+            <div class="field-group">
+                <label for="registerEmail" class="field-label">Correo electrónico</label>
+                <input
+                    type="email"
+                    id="registerEmail"
+                    class="field-input"
+                    placeholder="tu@correo.com"
+                    autocomplete="email"
+                    required
+                />
+            </div>
+
+            <div class="field-group">
+                <label for="registerPassword" class="field-label">Contraseña</label>
+                <input
+                    type="password"
+                    id="registerPassword"
+                    class="field-input"
+                    placeholder="Mínimo 8 caracteres"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                />
+            </div>
+
+            <button id="registerSubmit" class="button auth-submit" type="button">
+                Crear cuenta
+            </button>
+        </div>
+
+        <p class="auth-switch">
+            ¿Ya tienes cuenta?
+            <button id="goToLogin" class="link-button" type="button">Inicia sesión</button>
+        </p>
+    </div>
+</section>

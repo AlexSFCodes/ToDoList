@@ -1,88 +1,82 @@
-import { Todo } from '../model/todo.model';
+import { fetchTodos, createTodo, updateTodo, deleteTodo } from '../services/todos.service.js';
 
 export const Filters = {
-    All: 'all',
+    All:       'all',
     Completed: 'Completed',
-    Pending: 'Pending'
-}
+    Pending:   'Pending',
+};
 
+/** Local filter preference (no need to persist to server) */
 const state = {
-    todos: [],
     filter: Filters.All,
-}
+};
 
-const initStore = () => {
-    loadStore();
-}
-
-const loadStore = () => {
-    if (!localStorage.getItem('state')) return;
-    
-    const { todos = [], filter = Filters.All } = JSON.parse(localStorage.getItem('state'));
-    state.todos = todos;
-    state.filter = filter;
-}
-
-const saveStateToLocalStorage = () => {
-    localStorage.setItem('state', JSON.stringify(state));
-}
-
-const getTodos = (filter = Filters.All) => {
-    switch (filter) {
-        case Filters.All:
-            return [...state.todos];
-        case Filters.Completed:
-            return state.todos.filter(todo => todo.done);
-        case Filters.Pending:
-            return state.todos.filter(todo => !todo.done);
-        default:
-            throw new Error("Filtro no válido");
-    }
-}
-
-const addTodo = (description) => {
-    if (!description) throw new Error("Descripción vacía");
-    state.todos.push(new Todo(description));
-    saveStateToLocalStorage();
-}
-
-const toggleTodo = (todoId) => {
-    state.todos = state.todos.map(toDo => {
-        if (toDo.id === todoId) {
-            toDo.done = !toDo.done;
-        }
-        return toDo;
-    });
-    saveStateToLocalStorage();
-}
-
-const deleteTodo = (todoId) => {
-    state.todos = state.todos.filter(toDo => toDo.id !== todoId);
-    saveStateToLocalStorage();
-}
-
-const deleteCompleted = () => {
-    state.todos = state.todos.filter(todo => !todo.done);
-    saveStateToLocalStorage();
-}
+// ─── Filter (local only) ────────────────────────────────────────────────────
 
 const setFilter = (newFilter = Filters.All) => {
     state.filter = newFilter;
-    saveStateToLocalStorage();
-}
+};
 
-const getCurrentFilter = () => {
-    return state.filter;
-}
+const getCurrentFilter = () => state.filter;
+
+// ─── Todos (remote) ─────────────────────────────────────────────────────────
+
+/**
+ * Fetches todos from the API and applies the given filter locally.
+ * @param {string} filter
+ * @returns {Promise<Array>}
+ */
+const getTodos = async (filter = Filters.All) => {
+    const todos = await fetchTodos();
+
+    switch (filter) {
+        case Filters.Completed: return todos.filter(t => t.done);
+        case Filters.Pending:   return todos.filter(t => !t.done);
+        default:                return todos;
+    }
+};
+
+/**
+ * Creates a new todo via the API.
+ * @param {string} description
+ * @returns {Promise<object>} The created todo
+ */
+const addTodo = (description) => {
+    if (!description?.trim()) throw new Error('La descripción no puede estar vacía');
+    return createTodo(description.trim());
+};
+
+/**
+ * Toggles the done state of a todo.
+ * @param {string} id
+ * @param {boolean} currentDone  current value so we can flip it
+ * @returns {Promise<object>}
+ */
+const toggleTodo = (id, currentDone) => updateTodo(id, { done: !currentDone });
+
+/**
+ * Removes a todo.
+ * @param {string} id
+ * @returns {Promise<null>}
+ */
+const removeTodo = (id) => deleteTodo(id);
+
+/**
+ * Deletes all completed todos (client-side waterfall — adjust if your API supports bulk delete).
+ * @returns {Promise<void>}
+ */
+const deleteCompleted = async () => {
+    const todos = await fetchTodos();
+    const completed = todos.filter(t => t.done);
+    await Promise.all(completed.map(t => deleteTodo(t.id)));
+};
 
 export default {
     addTodo,
     deleteCompleted,
-    deleteTodo,
     getCurrentFilter,
     getTodos,
-    initStore,
-    loadStore,
+    removeTodo,
     setFilter,
     toggleTodo,
-}
+};

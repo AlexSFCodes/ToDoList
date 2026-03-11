@@ -1,31 +1,57 @@
-import store from '../../store/store';
+import store from '../../store/store.js';
 
 /**
- * Configura los event listeners para agregar tareas
+ * Configura los event listeners para agregar tareas (async).
+ * @param {Function} onAdded  optional callback after a todo is successfully added
  */
-export const setupAddTodoListeners = () => {
-    const enterToDo = document.querySelector("#añadirTarea");
-    const botonEnter = document.querySelector(".add-task-button");
-    
-    if (!enterToDo || !botonEnter) return;
-    
-    const agregarTodo = () => {
-        if (enterToDo.value.trim().length === 0) return;
-        
-        store.addTodo(enterToDo.value);
-        enterToDo.value = '';
-        enterToDo.focus(); // Mantiene el foco para seguir agregando
+export const setupAddTodoListeners = (onAdded) => {
+    const input     = document.querySelector('#añadirTarea');
+    const submitBtn = document.querySelector('.add-task-button');
+    const errorBox  = document.querySelector('#addTodoError');
+
+    if (!input || !submitBtn) return;
+
+    const showError = (msg) => {
+        if (!errorBox) return;
+        errorBox.textContent = msg;
+        errorBox.hidden = false;
     };
-    
-    // Enter key
-    enterToDo.addEventListener('keyup', (event) => {
-        if (event.keyCode !== 13) return;
-        agregarTodo();
-    });
-    
-    // Botón click
-    botonEnter.addEventListener('click', agregarTodo);
-    
-    // Autofocus
-    enterToDo.focus();
+
+    const clearError = () => {
+        if (!errorBox) return;
+        errorBox.textContent = '';
+        errorBox.hidden = true;
+    };
+
+    const setLoading = (loading) => {
+        submitBtn.disabled = loading;
+        submitBtn.textContent = loading ? 'Añadiendo…' : 'Añadir tarea';
+    };
+
+    const agregarTodo = async () => {
+        clearError();
+        const value = input.value.trim();
+
+        if (!value) {
+            showError('Escribe una descripción para la tarea.');
+            input.focus();
+            return;
+        }
+
+        setLoading(true);
+        try {
+            await store.addTodo(value);
+            input.value = '';
+            input.focus();
+            if (onAdded) onAdded();
+        } catch (err) {
+            showError(err.message ?? 'Error al agregar la tarea.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    input.addEventListener('keyup', (e) => { if (e.key === 'Enter') agregarTodo(); });
+    submitBtn.addEventListener('click', agregarTodo);
+    input.focus();
 };

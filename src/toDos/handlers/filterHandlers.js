@@ -1,41 +1,25 @@
-import store from '../../store/store';
-import { Filters } from '../../store/store';
+import store, { Filters } from '../../store/store.js';
 
 /**
- * Configura los botones de filtro del footer
+ * Configura los botones de filtro del footer.
+ * @param {Function} refreshCallback  async function that re-renders the list
  */
 export const setupFilterButtons = (refreshCallback) => {
-    const filterButtons = document.querySelectorAll(".filter-button");
-    
+    const filterButtons = document.querySelectorAll('.filter-button');
+
     filterButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            let filter;
-            
-            switch(index) {
-                case 0: // Completadas
-                    filter = Filters.Completed;
-                    break;
-                case 1: // Pendientes
-                    filter = Filters.Pending;
-                    break;
-                case 2: // Todas
-                default:
-                    filter = Filters.All;
-                    break;
-            }
-            
+        button.addEventListener('click', async () => {
+            const filter = [Filters.Completed, Filters.Pending, Filters.All][index] ?? Filters.All;
             store.setFilter(filter);
-            refreshCallback();
-            
-            // Resalta el botón activo
+            await refreshCallback();
+
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
         });
     });
-    
-    // Marca el filtro actual como activo
-    const currentFilter = store.getCurrentFilter();
-    if (currentFilter === Filters.Completed) filterButtons[0].classList.add('active');
-    else if (currentFilter === Filters.Pending) filterButtons[1].classList.add('active');
-    else filterButtons[2].classList.add('active');
+
+    // Mark current active filter on load
+    const current = store.getCurrentFilter();
+    const activeIndex = current === Filters.Completed ? 0 : current === Filters.Pending ? 1 : 2;
+    filterButtons[activeIndex]?.classList.add('active');
 };
